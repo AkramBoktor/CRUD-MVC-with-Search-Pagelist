@@ -1,0 +1,142 @@
+﻿
+@using PagedList;
+@using PagedList.Mvc;
+
+@model PagedList.IPagedList<CRMCars.Models.Car>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+@using (Html.BeginForm("Search", "Cars", FormMethod.Get))
+{
+
+
+    <h4>Search Option:</h4> @Html.RadioButton("option", "Flag") <text>Flag</text> @Html.RadioButton("option", "Brand") <text> Brand </text>
+    @Html.TextBox("search")
+    <input type="submit" name="submit" value="Search">
+}
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Flag)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().VIN)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().FirstRegistration)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().VechicleType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Brand)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Yearofconstruction)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Color)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().EngineType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Enginepower)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().DriveType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().Username)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.First().LogDate)
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Flag)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VIN)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstRegistration)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.VechicleType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Brand)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Yearofconstruction)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EngineType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Enginepower)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DriveType)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Username)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LogDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+
+
+
+
+        </tr>
+
+
+    }
+
+</table>
+
+
+
+
+@Html.PagedListPager(Model, pageNumber => Url.Action("Search", new {
+pageNumber,
+option = Request.QueryString["option"],
+search = Request.QueryString["search"]
+}))
